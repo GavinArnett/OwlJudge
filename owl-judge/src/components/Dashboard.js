@@ -5,6 +5,7 @@ function Dashboard() {
   return (
     <div className="dashboard">
       <h1>Welcome to Owl Judge</h1>
+      <h1>TESTING </h1> 
       <p>Your one-stop platform for managing and judging capstone projects efficiently.</p>
     </div>
   );
