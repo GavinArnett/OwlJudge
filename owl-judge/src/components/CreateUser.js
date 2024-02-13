@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import './CreateUser.css'; // Style file for the component
+import { Navigate } from 'react-router-dom';
 import { auth, database} from '../config/firebase';
 import { createUserWithEmailAndPassword } from '@firebase/auth';
 import {ref, set} from 'firebase/database';
@@ -11,6 +12,8 @@ function CreateUser() {
   const [password, setPassword] = useState('');
   const [emailError, setEmailError] = useState('');
   const [passwordError, setPasswordError] = useState('');
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
 
 
   const handleSubmit = async (e) => {
@@ -42,10 +45,15 @@ function CreateUser() {
         setPassword('');
         setEmailError('');
         setPasswordError('');
+        setIsLoggedIn(true);
     } catch (error) {
         console.error('Error creating user:', error.message);
     }
   };
+
+  if (isLoggedIn) {
+    return <Navigate to="/" />; // Use Navigate to redirect instead of Redirect
+  }
 
   const handleEmailChange = (e) => {
     setEmail(e.target.value);
