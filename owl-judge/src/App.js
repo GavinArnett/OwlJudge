@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Dashboard from './components/Dashboard';
 import EventForm from './components/EventForm';
 import Navigation from './components/Navigation';
+import CreateUser from './components/CreateUser';
 
 function App() {
   return (
@@ -11,6 +12,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Dashboard />} />
         <Route path="/event-form" element={<EventForm />} />
+        <Route path="/create-user" element={<CreateUser />} />
       </Routes>
     </Router>
   );
