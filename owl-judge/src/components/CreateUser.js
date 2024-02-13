@@ -1,5 +1,8 @@
 import React, { useState } from 'react';
 import './CreateUser.css'; // Style file for the component
+import { auth, database} from '../config/firebase';
+import { createUserWithEmailAndPassword } from '@firebase/auth';
+import {ref, set} from 'firebase/database';
 
 function CreateUser() {
   const [firstName, setFirstName] = useState('');
@@ -9,7 +12,8 @@ function CreateUser() {
   const [emailError, setEmailError] = useState('');
   const [passwordError, setPasswordError] = useState('');
 
-  const handleSubmit = (e) => {
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (!validateEmail(email)) {
       setEmailError('Please enter a valid email address.');
@@ -19,15 +23,28 @@ function CreateUser() {
       setPasswordError('Password must be at least 6 characters long.');
       return;
     }
-    // Here you can add code to handle form submission, e.g., sending data to Firebase
-    console.log('Form submitted:', { firstName, lastName, email, password });
-    // Reset form fields after submission
-    setFirstName('');
-    setLastName('');
-    setEmail('');
-    setPassword('');
-    setEmailError('');
-    setPasswordError('');
+
+    try {
+        //create user
+        const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+        const user = userCredential.user;
+
+        await set(ref(database, `users/${user.uid}`), {
+            email: email,
+            firstName: firstName,
+            lastName: lastName
+        });
+
+        // Clear form fields
+        setFirstName('');
+        setLastName('');
+        setEmail('');
+        setPassword('');
+        setEmailError('');
+        setPasswordError('');
+    } catch (error) {
+        console.error('Error creating user:', error.message);
+    }
   };
 
   const handleEmailChange = (e) => {
