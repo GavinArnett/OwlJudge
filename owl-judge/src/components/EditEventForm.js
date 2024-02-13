@@ -1,9 +1,12 @@
-import React, { useState } from 'react';
-import { database } from '../config/firebase'; // Adjust the import path as necessary
-import { ref, push } from 'firebase/database';
-import './EventForm.css'; // Ensure this path matches your CSS file's location
+import React, { useState, useEffect } from 'react';
+import { useParams, useNavigate } from 'react-router-dom';
+import { database } from '../config/firebase'; // Adjust based on your file structure
+import { ref, get, update } from 'firebase/database';
+import './EventForm.css'; // Reuse the CSS from your EventForm
 
-function EventForm() {
+function EditEventForm() {
+  const { eventId } = useParams();
+  const navigate = useNavigate();
   const [eventDetails, setEventDetails] = useState({
     name: '',
     date: '',
@@ -11,27 +14,28 @@ function EventForm() {
     location: '',
   });
 
+  useEffect(() => {
+    const eventRef = ref(database, `events/${eventId}`);
+    get(eventRef).then((snapshot) => {
+      if (snapshot.exists()) {
+        setEventDetails(snapshot.val());
+      } else {
+        alert("Event not found!");
+        navigate("/events-dashboard"); // Redirect if the event doesn't exist
+      }
+    });
+  }, [eventId, navigate]);
+
   const handleChange = (e) => {
     setEventDetails({ ...eventDetails, [e.target.name]: e.target.value });
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    try {
-      const eventsRef = ref(database, 'events');
-      await push(eventsRef, eventDetails);
-      alert('Event added successfully!');
-      // Reset form fields
-      setEventDetails({
-        name: '',
-        date: '',
-        time: '',
-        location: '',
-      });
-    } catch (error) {
-      console.error("Error adding event: ", error);
-      alert('Error adding event, please try again.');
-    }
+    const eventRef = ref(database, `events/${eventId}`);
+    await update(eventRef, eventDetails);
+    alert('Event updated successfully!');
+    navigate("/events-dashboard"); // Redirect back to the dashboard after updating
   };
 
   return (
@@ -77,10 +81,11 @@ function EventForm() {
             required
           />
         </div>
-        <button type="submit" className="submit-btn">Submit</button>
+        <button type="submit" className="submit-btn">Update Event</button>
       </form>
     </div>
   );
 }
 
-export default EventForm;
+export default EditEventForm;
+
