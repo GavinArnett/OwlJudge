@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
-import { Link, Navigate } from 'react-router-dom'; // Import Navigate instead of Redirect
+import { Link, Navigate } from 'react-router-dom';
 import { signInWithEmailAndPassword } from 'firebase/auth';
-import { auth } from '../config/firebase';
+import { auth, database } from '../config/firebase'; // Import database
+import { ref, get } from 'firebase/database'; // Import ref and get
+import { signInWithPopup, GoogleAuthProvider } from 'firebase/auth';
 import './Login.css';
 
 function Login({ setUser }) {
@@ -11,7 +13,7 @@ function Login({ setUser }) {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   const handleLogin = async (e) => {
-    e.preventDefault(); // Prevent default form submission behavior
+    e.preventDefault();
     try {
       await signInWithEmailAndPassword(auth, email, password);
       setIsLoggedIn(true);
@@ -20,8 +22,26 @@ function Login({ setUser }) {
     }
   };
 
+  const handleGoogleSignIn = async () => {
+    try {
+      const provider = new GoogleAuthProvider();
+      const userCredential = await signInWithPopup(auth, provider);
+      const user = userCredential.user;
+
+      // Check if the user exists in the database
+      const snapshot = await get(ref(database, `users/${user.uid}`));
+      if (snapshot.exists()) {
+        setIsLoggedIn(true);
+      } else {
+        setError('Please create an account before signing in with Google.');
+      }
+    } catch (error) {
+      setError(error.message);
+    }
+  };
+
   if (isLoggedIn) {
-    return <Navigate to="/" />; // Use Navigate to redirect instead of Redirect
+    return <Navigate to="/" />;
   }
 
   return (
@@ -51,6 +71,7 @@ function Login({ setUser }) {
         <button type="submit">Login</button>
         {error && <p className="error">{error}</p>}
       </form>
+      <button onClick={handleGoogleSignIn} className="google-button">Sign in with Google</button>
       <p>Don't have an account? <Link to="/create-user">Sign up</Link></p>
     </div>
   );

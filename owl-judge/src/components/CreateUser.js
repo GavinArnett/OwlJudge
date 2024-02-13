@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import './CreateUser.css'; // Style file for the component
-import { Navigate } from 'react-router-dom';
-import { auth, database} from '../config/firebase';
-import { createUserWithEmailAndPassword } from '@firebase/auth';
-import {ref, set} from 'firebase/database';
+import { createUserWithEmailAndPassword, signInWithPopup, GoogleAuthProvider } from 'firebase/auth';
+import { auth, database } from '../config/firebase';
+import { ref, set } from 'firebase/database';
+import { useNavigate } from 'react-router';
+import './CreateUser.css';
 
 function CreateUser() {
   const [firstName, setFirstName] = useState('');
@@ -12,9 +12,7 @@ function CreateUser() {
   const [password, setPassword] = useState('');
   const [emailError, setEmailError] = useState('');
   const [passwordError, setPasswordError] = useState('');
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-
-
+  const nav = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -28,32 +26,51 @@ function CreateUser() {
     }
 
     try {
-        //create user
-        const userCredential = await createUserWithEmailAndPassword(auth, email, password);
-        const user = userCredential.user;
+      // Create user with email and password
+      const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+      const user = userCredential.user;
 
-        await set(ref(database, `users/${user.uid}`), {
-            email: email,
-            firstName: firstName,
-            lastName: lastName
-        });
+      // Save additional user data to the database
+      await set(ref(database, `users/${user.uid}`), {
+        email: email,
+        firstName: firstName,
+        lastName: lastName
+      });
 
-        // Clear form fields
-        setFirstName('');
-        setLastName('');
-        setEmail('');
-        setPassword('');
-        setEmailError('');
-        setPasswordError('');
-        setIsLoggedIn(true);
+      // Clear form fields and errors
+      setFirstName('');
+      setLastName('');
+      setEmail('');
+      setPassword('');
+      setEmailError('');
+      setPasswordError('');
+      nav('/');
     } catch (error) {
-        console.error('Error creating user:', error.message);
+      console.error('Error creating user:', error.message);
     }
   };
 
-  if (isLoggedIn) {
-    return <Navigate to="/" />; // Use Navigate to redirect instead of Redirect
-  }
+  const handleGoogleSignIn = async () => {
+    try {
+      const provider = new GoogleAuthProvider();
+      const userCredential = await signInWithPopup(auth, provider);
+      const user = userCredential.user;
+
+      // Retrieve user's profile information
+      const displayName = user.displayName;
+      const [firstName, lastName] = displayName.split(' ');
+
+      // Save additional user data to the database
+      await set(ref(database, `users/${user.uid}`), {
+        email: user.email,
+        firstName: firstName,
+        lastName: lastName
+      });
+      nav('/');
+    } catch (error) {
+      console.error('Error signing in with Google:', error.message);
+    }
+  };
 
   const handleEmailChange = (e) => {
     setEmail(e.target.value);
@@ -115,8 +132,9 @@ function CreateUser() {
           />
           {passwordError && <p className="error">{passwordError}</p>}
         </div>
-        <button type="submit">Create Account</button>
+        <button type="submit" className="create-account-button">Create Account</button>
       </form>
+      <button onClick={handleGoogleSignIn} className="google-button">Sign up with Google</button>
     </div>
   );
 }
