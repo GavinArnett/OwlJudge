@@ -1,37 +1,45 @@
+/* EventForm.css */
+.form-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh; /* This makes sure the form is vertically centered in the viewport */
+}
+
 .event-form {
-    width: 100%;
-    max-width: 400px;
-    margin: 30px auto;
-    padding: 20px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  }
-  
-  .form-group {
-    margin-bottom: 20px;
-  }
-  
-  .form-group label {
-    display: block;
-    margin-bottom: 5px;
-  }
-  
-  .form-group input {
-    width: 100%;
-    padding: 10px;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-  }
-  
-  .submit-btn {
-    background-color: #0056b3;
-    color: white;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-  }
-  
-  .submit-btn:hover {
-    background-color: #004494;
-  }
-  
+  max-width: 600px; /* Adjust the width as needed */
+  width: 100%;
+  padding: 20px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Optional: adds a subtle shadow around the form */
+  border-radius: 8px; /* Optional: rounds the corners of the form */
+  background: #ffffff; /* Optional: sets a background color for the form */
+}
+
+.form-group {
+  margin-bottom: 20px; /* Adds space between form fields */
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 5px; /* Adds a small space above the input field */
+}
+
+.form-group input,
+.form-group button {
+  width: 100%;
+  padding: 10px;
+  margin-top: 5px; /* Adds a small space below the label */
+  border: 1px solid #ccc;
+  border-radius: 4px; /* Rounds the corners of the input field and button */
+}
+
+.submit-btn {
+  background-color: #007bff; /* Example button color */
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+.submit-btn:hover {
+  background-color: #0056b3; /* Darker shade for hover effect */
+}

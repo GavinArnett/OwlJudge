@@ -6,6 +6,8 @@ import Navigation from './components/Navigation';
 import CreateUser from './components/CreateUser';
 import Login from './components/Login';
 import UserBox from './components/UserBox';
+import EventsDashboard from './components/EventsDashboard';
+import EditEventForm from './components/EditEventForm';
 
 function App() {
   return (
@@ -17,6 +19,8 @@ function App() {
         <Route path="/event-form" element={<EventForm />} />
         <Route path="/create-user" element={<CreateUser />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/events-dashboard" element={<EventsDashboard />} />
+        <Route path="/edit-event/:eventId" element={<EditEventForm />} />
       </Routes>
     </Router>
   );
