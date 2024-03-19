@@ -1,30 +1,41 @@
-/* EventForm.css */
+/* EventForm.css: New clean and modern look */
 .form-container {
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: 100vh; /* This makes sure the form is vertically centered in the viewport */
+  padding: 20px;
 }
 
 .event-form {
-  max-width: 600px; /* Adjust the width as needed */
-  width: 100%;
+  max-width: 100%;
+  width: 90%; /* Better for mobile responsiveness */
+  margin: auto;
   padding: 20px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Optional: adds a subtle shadow around the form */
-  border-radius: 8px; /* Optional: rounds the corners of the form */
-  background: #ffffff; /* Optional: sets a background color for the form */
+  background: #FFF8DC; /* A soft gold background */
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 .form-group {
-  margin-bottom: 20px; /* Adds space between form fields */
+  margin-bottom: 1.5rem;
 }
 
 .form-group label {
   display: block;
-  margin-bottom: 5px; /* Adds a small space above the input field */
+  margin-bottom: 0.5rem;
+  color: #000000; /* Black for readability */
+  font-weight: bold;
 }
 
-.form-group input,
+.form-group input {
+  width: 100%;
+  padding: 0.75rem;
+  margin-top: 0.25rem;
+  border: 2px solid #FFC627; /* Gold border for inputs */
+  border-radius: 4px;
+  font-size: 1rem;
+}
 .form-group button {
   width: 100%;
   padding: 10px;
@@ -34,12 +45,14 @@
 }
 
 .submit-btn {
-  background-color: #007bff; /* Example button color */
-  color: white;
-  border: none;
-  cursor: pointer;
+  background-color: #000000; /* Black for primary button color */
+  color: #FFC627; /* Gold color for text to ensure readability */
+  border: 1px solid #FFC627; /* Gold border */
 }
 
 .submit-btn:hover {
-  background-color: #0056b3; /* Darker shade for hover effect */
+  background-color: #FFC627; /* Gold for hover */
+  color: #000000; /* Black text on hover */
+  border: 1px solid #000000;
 }
+

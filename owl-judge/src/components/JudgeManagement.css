@@ -1,0 +1,57 @@
+/* JudgeManagement.css */
+.management-container {
+    padding: 20px;
+    background-color: #FFF8DC; /* Consistent soft gold background */
+  }
+  
+  .judge-form {
+    max-width: 100%;
+    width: 90%; /* Optimal for mobile responsiveness */
+    margin: auto;
+    padding: 20px;
+    background: #ffffff; /* White background for the form */
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  .form-group {
+    margin-bottom: 1.5rem;
+  }
+  
+  .form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    color: #000000; /* Black for clear readability */
+    font-weight: bold;
+  }
+  
+  .form-group input,
+  .form-group select { /* Assuming you might have dropdowns for preferences */
+    width: 100%;
+    padding: 0.75rem;
+    margin-top: 0.25rem;
+    border: 2px solid #FFC627; /* Gold border to match KSU colors */
+    border-radius: 4px;
+    font-size: 1rem;
+  }
+  
+  .action-buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 1rem;
+  }
+  
+  .action-buttons button {
+    background-color: #000000; /* KSU Black for button background */
+    color: #FFC627; /* Gold text for contrast and readability */
+    padding: 10px 15px;
+    border-radius: 4px;
+    border: none;
+    cursor: pointer;
+  }
+  
+  .action-buttons button:hover {
+    background-color: #FFC627; /* Gold background for hover */
+    color: #000000; /* Black text on hover */
+  }
+  

@@ -1,0 +1,45 @@
+/* EventsDashboard.css */
+.dashboard-container {
+    padding: 20px;
+    background-color: #FFF8DC; /* A soft gold background for consistency */
+  }
+  
+  .event-list {
+    list-style-type: none; /* Removes default list styling */
+    padding: 0;
+  }
+  
+  .event-item {
+    background-color: #ffffff; /* White background for each event */
+    border: 2px solid #FFC627; /* Gold border for each event item */
+    border-radius: 8px;
+    margin-bottom: 1rem; /* Space between event items */
+    padding: 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+  }
+  
+  .event-item h3 {
+    color: #000000; /* Black color for the event title for readability */
+    margin-top: 0;
+  }
+  
+  .event-details {
+    color: #333; /* Slightly softer than black for text */
+    margin: 10px 0;
+  }
+  
+  .event-actions button {
+    background-color: #000000; /* Black background for buttons */
+    color: #FFC627; /* Gold text */
+    border: none;
+    padding: 10px 15px;
+    border-radius: 4px;
+    margin-right: 10px;
+    cursor: pointer;
+  }
+  
+  .event-actions button:hover {
+    background-color: #FFC627; /* Gold background for hover */
+    color: #000000; /* Black text on hover */
+  }
+  

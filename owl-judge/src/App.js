@@ -8,6 +8,7 @@ import Login from './components/Login';
 import UserBox from './components/UserBox';
 import EventsDashboard from './components/EventsDashboard';
 import EditEventForm from './components/EditEventForm';
+import JudgeManagement from './components/JudgeManagement';
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/events-dashboard" element={<EventsDashboard />} />
         <Route path="/edit-event/:eventId" element={<EditEventForm />} />
+        <Route path="/judge-management" element={<JudgeManagement />} />
       </Routes>
     </Router>
   );

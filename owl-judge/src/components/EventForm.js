@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import { database } from '../config/firebase'; // Adjust the import path as necessary
+import { database } from '../config/firebase';
 import { ref, push } from 'firebase/database';
-import './EventForm.css'; // Ensure this path matches your CSS file's location
+import './EventForm.css';
 
 function EventForm() {
   const [eventDetails, setEventDetails] = useState({
@@ -21,7 +21,6 @@ function EventForm() {
       const eventsRef = ref(database, 'events');
       await push(eventsRef, eventDetails);
       alert('Event added successfully!');
-      // Reset form fields
       setEventDetails({
         name: '',
         date: '',
